@@ -11,28 +11,43 @@
                 <model:Monkey
                     Name="Baboom"
                     Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/baboon.jpg"
-                    Location="Congo" />
+                    Location="Africa and Asia" />
                 <model:Monkey
                     Name="Capuchin"
                     Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/capuchin.jpg"
-                    Location="Amazonia" />
+                    Location="Central and South America" />
                 <model:Monkey
                     Name="Blue monkey"
                     Image="https://raw.githubusercontent.com/jamesmontemagno/app-monkeys/master/bluemonkey.jpg"
-                    Location="America" />
+                    Location="Central and East Africa" />
             </x:Array>
         </CollectionView.ItemsSource>
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="model:Monkey">
-                <HorizontalStackLayout Padding="10">
-                    <Image
-                        Aspect="AspectFill"
-                        HeightRequest="100"
-                        Source="{Binding Image}"
-                        WidthRequest="100" />
-                    <Label Text="{Binding Name}" VerticalOptions="Center" />
-                    <Label Text="{Binding Location}" VerticalOptions="Center" />
-                </HorizontalStackLayout>
+                <Border Stroke="Aquamarine" StrokeThickness="0.5">
+                    <HorizontalStackLayout Padding="10">
+                        <Image
+                            Aspect="AspectFill"
+                            HeightRequest="80"
+                            Source="{Binding Image}"
+                            WidthRequest="80" />
+                        <Label
+                            Margin="3,0"
+                            FontAttributes="Bold"
+                            FontSize="Header"
+                            Text="{Binding Name}"
+                            VerticalOptions="Center" />
+                        <Label
+                            Margin="3,0"
+                            Text="|"
+                            VerticalOptions="Center" />
+                        <Label
+                            Margin="3,0"
+                            FontSize="Caption"
+                            Text="{Binding Location}"
+                            VerticalOptions="Center" />
+                    </HorizontalStackLayout>
+                </Border>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>
