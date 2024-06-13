@@ -9,23 +9,23 @@
     x:DataType="viewmodel:MonkeyViewModel">
 
     <Grid
-        ColumnDefinitions="*,*"
+        ColumnDefinitions="*,70"
         ColumnSpacing="5"
         RowDefinitions="*,Auto"
         RowSpacing="1">
         <CollectionView
-            Grid.Column="2"
+            Grid.Column="0"
             ItemsSource="{Binding Monkeys}"
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
-                    <Frame HeightRequest="125">
-                        <Grid Padding="0" ColumnDefinitions="125,*">
+                    <Frame HeightRequest="120">
+                        <Grid Padding="0" ColumnDefinitions="100,*">
                             <Image
                                 Aspect="AspectFill"
-                                HeightRequest="125"
+                                HeightRequest="100"
                                 Source="{Binding Image}"
-                                WidthRequest="125" />
+                                WidthRequest="100" />
                             <StackLayout
                                 Grid.Column="1"
                                 Padding="10"
@@ -58,8 +58,7 @@
             Text="Get Monkey"
             TextColor="White" />
         <ActivityIndicator
-            Grid.RowSpan="2"
-            Grid.ColumnSpan="2"
+            Grid.Column="1"
             HorizontalOptions="FillAndExpand"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"

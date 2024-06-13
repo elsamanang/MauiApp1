@@ -12,8 +12,8 @@ namespace MauiApp1.ViewModel
 {
     public partial class MonkeyViewModel : BaseViewModel
     {
-        public ObservableCollection<Monkey> Monkeys { get; set; } = new();
-        private MonkeyService _monkeyService;
+        public ObservableCollection<Monkey> Monkeys { get; } = new();
+        MonkeyService _monkeyService;
         public Command GetMonkeyCommand { get; }
 
         public MonkeyViewModel(MonkeyService monkeyService)
@@ -31,7 +31,7 @@ namespace MauiApp1.ViewModel
             {
                 IsBusy = true;
 
-                var monkeys = await _monkeyService.GetMonkeys();
+                var monkeys = await _monkeyService.GetMonkeysAsync();
 
                 if(monkeys.Count != 0) Monkeys.Clear(); 
 
