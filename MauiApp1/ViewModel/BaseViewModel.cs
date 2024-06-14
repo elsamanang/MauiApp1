@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -8,37 +9,15 @@ using System.Threading.Tasks;
 
 namespace MauiApp1.ViewModel
 {
-    public class BaseViewModel : INotifyPropertyChanged
+    public partial class BaseViewModel : ObservableObject
     {
-        bool isBusy;
+        [ObservableProperty]
+        [NotifyPropertyChangedFor(nameof(IsNotBusy))]
+        private bool isBusy;
+
+        [ObservableProperty]
         string title;
 
-        public bool IsBusy
-        {
-            get => isBusy;
-            set {
-                if (isBusy == value) {
-                    return;
-                }
-                isBusy = value;
-                OnPropertyChanged();
-            }
-        }
-        
-        public string Title
-        {
-            get => title;
-            set {
-                title = value;
-                OnPropertyChanged(nameof(IsNotBusy));
-            }
-        }
-
         public bool IsNotBusy => !isBusy;
-
-        public event PropertyChangedEventHandler? PropertyChanged;
-
-        public void OnPropertyChanged([CallerMemberName] string name = null) => 
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
     }
 }

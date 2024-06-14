@@ -20,6 +20,9 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
                     <Frame HeightRequest="120">
+                        <Frame.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="TapeGestureRecognizer_Taped" />
+                        </Frame.GestureRecognizers>
                         <Grid Padding="0" ColumnDefinitions="100,*">
                             <Image
                                 Aspect="AspectFill"
