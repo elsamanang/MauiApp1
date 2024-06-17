@@ -1,12 +1,65 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="MauiApp1.View.DetailsPage"
-             Title="DetailsPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+<ContentPage
+    x:Class="MauiApp1.View.DetailsPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:viewmodel="clr-namespace:MauiApp1.ViewModel"
+    Title="{Binding Monkey.Name}"
+    x:DataType="viewmodel:DetailsPageViewModel">
+    <ScrollView>
+        <VerticalStackLayout>
+            <Grid ColumnDefinitions="*,Auto,*" RowDefinitions="160, auto">
+                <Grid
+                    Grid.ColumnSpan="3"
+                    BackgroundColor="BlueViolet"
+                    HeightRequest="160"
+                    HorizontalOptions="FillAndExpand">
+                    <Frame
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        Margin="0,80,0,0"
+                        Padding="0"
+                        CornerRadius="80"
+                        HeightRequest="160"
+                        HorizontalOptions="Center"
+                        IsClippedToBounds="True"
+                        WidthRequest="160">
+                        <Image
+                            Aspect="AspectFill"
+                            HeightRequest="160"
+                            HorizontalOptions="Center"
+                            Source="{Binding Monkey.Image}"
+                            VerticalOptions="Center"
+                            WidthRequest="160" />
+                    </Frame>
+                </Grid>
+            </Grid>
+            <VerticalStackLayout Margin="10,60">
+                <Label
+                    Margin="3,5"
+                    FontSize="Header"
+                    Text="{Binding Monkey.Details}"
+                    VerticalOptions="Center" />
+                <Label
+                    Margin="3,5"
+                    FontAttributes="Italic"
+                    FontSize="Caption"
+                    Text="{Binding Monkey.Location}"
+                    VerticalOptions="Center" />
+                <Label
+                    Margin="3,5"
+                    FontSize="Caption"
+                    Text="{Binding Monkey.Population, StringFormat='Population : {0}'}"
+                    VerticalOptions="Center" />
+                <Button
+                    Margin="4"
+                    BackgroundColor="BlueViolet"
+                    Command="{Binding OpenMapCommand}"
+                    HorizontalOptions="Center"
+                    Text="Show On Map"
+                    TextColor="White" />
+            </VerticalStackLayout>
+        </VerticalStackLayout>
+
+    </ScrollView>
 </ContentPage>
