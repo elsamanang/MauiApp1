@@ -9,7 +9,7 @@
     x:DataType="viewmodel:MonkeyViewModel">
 
     <Grid
-        ColumnDefinitions="*,70"
+        ColumnDefinitions="*,Auto"
         ColumnSpacing="5"
         RowDefinitions="*,Auto"
         RowSpacing="1">
@@ -19,19 +19,19 @@
             SelectionMode="None">
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="model:Monkey">
-                    <Frame HeightRequest="120">
+                    <Frame Margin="2,4" HeightRequest="120">
                         <Frame.GestureRecognizers>
                             <TapGestureRecognizer Tapped="TapeGestureRecognizer_Taped" />
                         </Frame.GestureRecognizers>
-                        <Grid Padding="0" ColumnDefinitions="100,*">
+                        <Grid Padding="0" ColumnDefinitions="auto,*">
                             <Image
-                                Aspect="AspectFill"
-                                HeightRequest="100"
+                                Aspect="Fill"
+                                HeightRequest="150"
                                 Source="{Binding Image}"
-                                WidthRequest="100" />
+                                WidthRequest="130" />
                             <StackLayout
                                 Grid.Column="1"
-                                Padding="10"
+                                Padding="10,0"
                                 VerticalOptions="Center">
                                 <Label
                                     Margin="3,0"
@@ -50,18 +50,33 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        <Button
+        <Grid
             Grid.Row="1"
             Grid.Column="0"
-            Margin="8"
+            Margin="4"
             Padding="2"
-            BackgroundColor="BlueViolet"
-            Command="{Binding GetMonkeyCommand}"
-            IsEnabled="{Binding IsNotBusy}"
-            Text="Get Monkey"
-            TextColor="White" />
+            ColumnDefinitions="*,*">
+            <Button
+                Grid.Column="0"
+                Margin="4"
+                BackgroundColor="BlueViolet"
+                Command="{Binding GetMonkeyCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Get All"
+                TextColor="White" />
+            <Button
+                Grid.Column="1"
+                Margin="4"
+                BackgroundColor="BlueViolet"
+                Command="{Binding GetClosestMonkeyCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                Text="Get Closes"
+                TextColor="White" />
+        </Grid>
+
         <ActivityIndicator
-            Grid.Column="1"
+            Grid.RowSpan="2"
+            Grid.ColumnSpan="2"
             HorizontalOptions="FillAndExpand"
             IsRunning="{Binding IsBusy}"
             IsVisible="{Binding IsBusy}"

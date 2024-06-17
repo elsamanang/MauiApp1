@@ -1,4 +1,5 @@
-﻿using MauiApp1.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using MauiApp1.Models;
 using MauiApp1.View;
 using MauiApp1.ViewModel;
 
@@ -20,10 +21,10 @@ namespace MauiApp1
 
             if (monkey == null) return;
 
-            await Shell.Current.GoToAsync(nameof(DetailsPage), true, new Dictionary<string, object> {
+            await Shell.Current.GoToAsync(nameof(DetailsPage), true, new Dictionary<string, object> 
+            {
                 { "Monkey", monkey },
             });
         }
     }
-
 }

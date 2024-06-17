@@ -1,4 +1,5 @@
 ﻿using MauiApp1.Services;
+using MauiApp1.View;
 using MauiApp1.ViewModel;
 using Microsoft.Extensions.Logging;
 
@@ -17,9 +18,16 @@ namespace MauiApp1
                     fonts.AddFont("OpenSans-Semibold.ttf", "OpenSansSemibold");
                 });
 
-            builder.Services.AddTransient<MainPage>();
             builder.Services.AddTransient<MonkeyService>();
+            builder.Services.AddSingleton<IGeolocation>(Geolocation.Default);
+            builder.Services.AddSingleton<IMap>(Map.Default);
+
             builder.Services.AddTransient<MonkeyViewModel>();
+            builder.Services.AddTransient<DetailsPageViewModel>();
+            
+            builder.Services.AddTransient<MainPage>();
+            builder.Services.AddTransient<DetailsPage>();
+
 
 #if DEBUG
     		builder.Logging.AddDebug();
