@@ -1,4 +1,6 @@
-﻿using MauiApp1.Models;
+﻿using CommunityToolkit.Mvvm.Input;
+using Java.Util;
+using MauiApp1.Models;
 using MauiApp1.Services;
 using System;
 using System.Collections.Generic;
@@ -14,15 +16,16 @@ namespace MauiApp1.ViewModel
     {
         public ObservableCollection<Monkey> Monkeys { get; } = new();
         MonkeyService _monkeyService;
-        public Command GetMonkeyCommand { get; }
+        IGeolocation geolocation;
 
-        public MonkeyViewModel(MonkeyService monkeyService)
+        public MonkeyViewModel(MonkeyService monkeyService, IGeolocation geolocation)
         {
             Title = "Monkey list";
             _monkeyService = monkeyService;
-            GetMonkeyCommand = new Command(async () => await GetMonkeyAsync());
+            this.geolocation = geolocation;
         }
 
+        [RelayCommand]
         public async Task GetMonkeyAsync()
         {
             if(IsBusy) return;
@@ -50,5 +53,36 @@ namespace MauiApp1.ViewModel
                 IsBusy = false;
             }
         }
+
+        [RelayCommand]
+        async Task GetClosestMonkey()
+        {
+            if (IsBusy || Monkeys.Count == 0) return;
+
+            try
+            {
+                var location = await geolocation.GetLastKnownLocationAsync();
+                if (location == null)
+                {
+                    location = await geolocation.GetLocationAsync(new GeolocationRequest
+                    {
+                        DesiredAccuracy = GeolocationAccuracy.Medium,
+                        Timeout = TimeSpan.FromSeconds(30)
+                    });
+                }
+
+                var first = Monkeys.OrderBy(m => location.CalculateDistance(
+                     new Location(m.Latitude, m.Longitude), DistanceUnits.Miles))
+                    .FirstOrDefault();
+
+                await Application.Current.MainPage.DisplayAlert(" ", first.Name + " " + first.Location, "Ok");
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine($"Unable to query location: {ex.Message}");
+                await Application.Current.MainPage.DisplayAlert("Error", ex.Message, "Ok");
+            }
+        }
+
     }
 }
